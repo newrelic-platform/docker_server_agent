@@ -5,10 +5,10 @@
 # logged in to Docker Hub.
 #
 
-if [ -n "${DOCKERHUB_NAME}" ]; then
-  rootname="${DOCKERHUB_NAME}"
-else
-  rootname="${LOGNAME}"
+rootname="newrelic"
+if [ $# -ne 0 ]
+  then
+rootname=$1
 fi
 
 
