@@ -1,9 +1,11 @@
 # docker_server_agent
-The requisite Dockerfile and associated scripts to run the New Relic Server Agent for Linux inside of a container.
+This repo includes the requisite Dockerfile and associated scripts to run the New Relic Servers for Linux agent inside of a container.
+
+*Please note that this is an early beta and has several known issues*
 
 ##Building custom image##
 
-The Dockerfile used to generate the [nrsysmond image](https://registry.hub.docker.com/u/newrelic/nrsysmond/)  is provided, and the script file docker.build.sh can be used to build a new image. A custom-built image emay require changes (e.g. image names)in docker.run.sh, docker.upload.sh and docker.service.
+The Dockerfile used to generate the [nrsysmond image](https://registry.hub.docker.com/u/newrelic/nrsysmond/)  is provided, and the script file docker.build.sh can be used to build a new image. A custom-built image may require changes (e.g. image names)in docker.run.sh, docker.upload.sh and docker.service.
 
 ##Running with fleetctl##
 
@@ -28,3 +30,6 @@ translates to
 ```sh
 -e NRSYSMOND_loglevel=debug
 ```
+
+# Interested in providing feedback #
+Please share your experiences with us via the [New Relic Forums](https://discuss.newrelic.com/c/server-monitoring/docker)
