@@ -8,7 +8,15 @@ TimeoutStartSec=10m
 ExecStartPre=-/usr/bin/docker kill nrsysmond
 ExecStartPre=-/usr/bin/docker rm nrsysmond
 ExecStartPre=/usr/bin/docker pull newrelic/nrsysmond:latest
-ExecStart=/usr/bin/docker run --name nrsysmond --pid=host -v /sys:/sys -v /dev:/dev --privileged=true --net=host -v /var/run/docker.sock:/var/run/docker.sock -e NRSYSMOND_license_key="ENTER_YOUR_LICENSE_KEY_HERE" -e NRSYSMOND_collector_host=collector.newrelic.com -e NRSYSMOND_loglevel=info -e NRSYSMOND_hostname=%H newrelic/nrsysmond:latest
+ExecStart=/usr/bin/docker run --name nrsysmond \
+--pid=host \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /dev:/dev \
+-v /sys:/sys \
+--privileged=true \
+--net=host \
+-e NRSYSMOND_license_key=YOUR_LICENSE_KEY_HERE \
+newrelic/nrsysmond:latest
 ExecStop=/usr/bin/docker stop -t 30 nrsysmond
 
 [Install]
