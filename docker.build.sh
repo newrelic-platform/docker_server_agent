@@ -12,10 +12,10 @@ fi
 
 
 if [ $# -ne 0 ]
-  then
-tag_name=$1
+then
+  tag_name=$1
 else
-  echo "Must supply Tag"
+  echo "Error: Must supply Tag"
   exit 1;
 fi
 
