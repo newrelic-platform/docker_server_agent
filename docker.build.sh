@@ -33,9 +33,6 @@ export NRSYSMONDVERSION=`echo $input| cut -d'-' -f 3`
 #Build the docker image
 ID=$(docker build -t ${rootname}/nrsysmond:${NRSYSMONDVERSION} .)
 
-#Tag the image
-docker tag --force=true ${rootname}/nrsysmond:${NRSYSMONDVERSION}  ${rootname}/nrsysmond:latest
-
 #Cleanup temporary files
 rm -r download.newrelic.com
 rm -r newrelic-sysmond-*-linux
