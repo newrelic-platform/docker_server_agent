@@ -30,7 +30,7 @@ tar -xvzf download.newrelic.com/server_monitor/release/*-linux.tar.gz
 cp newrelic-sysmond-*-linux/daemon/nrsysmond.x64 .
 
 #Parse version number from the file name
-input=`ls download.newrelic.com/server_monitor/release/*-linux.tar.gz`
+#input=`ls download.newrelic.com/server_monitor/release/*-linux.tar.gz`
 #export NRSYSMONDVERSION=`echo $input| cut -d'-' -f 3`
 
 #Build the docker image
