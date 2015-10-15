@@ -5,11 +5,16 @@ This repo includes the requisite Dockerfile and associated scripts to run the Ne
 
 ##Building custom image##
 
-The Dockerfile used to generate the [nrsysmond image](https://registry.hub.docker.com/u/newrelic/nrsysmond/)  is provided, and the script file docker.build.sh can be used to build a new image. A custom-built image may require changes (e.g. image names)in docker.run.sh, docker.upload.sh and docker.service.
+The Dockerfile used to generate the [nrsysmond image](https://registry.hub.docker.com/u/newrelic/nrsysmond/) is provided, and the script file `docker.build.sh` can be used to build a new image. A custom-built image may require changes (e.g. image names) in `docker.run.sh`, `docker.upload.sh` and `nrsysmond.service`.
+
+##Running with systemd##
+
+Copy the file `nrsysmond.service` and the directory `nrsysmond.service.d` to the path `/etc/systemd/system/`. Edit the file `/etc/systemd/system/nrsysmond.service.d/license.conf` with your New Relic license key.
+
 
 ##Running with fleetctl##
 
-If you use fleetctl to manage a number of CoreOS nodes, you can use the sample service file docker.service to setup monitoring on multiple CoreOS machines. Thefile will need to be edited to insert your New Relic license key. 
+If you use fleetctl to manage a number of CoreOS nodes, you can use the sample service file `nrsysmond.service` to setup monitoring on multiple CoreOS machines. The file will need to be edited to insert your New Relic license key. 
 
 For more information on how to set up and run a fleetctl service , please refer to the CoreOS cluster management [documentation] (https://coreos.com/using-coreos/clustering/).
 
