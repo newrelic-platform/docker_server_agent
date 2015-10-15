@@ -1,7 +1,8 @@
 [Unit]
 Description=New Relic Linux Server Monitor (nrsysmond)
-After=docker.service
-Requires=docker.service
+Requires=docker.socket
+After=docker.socket
+After=network.target
 
 [Service]
 TimeoutStartSec=10m
