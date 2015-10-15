@@ -5,6 +5,7 @@ Requires=docker.service
 
 [Service]
 TimeoutStartSec=10m
+SyslogIdentifier=nrsysmond
 Environment="NRSYSMOND_license_key=YOUR_LICENSE_KEY_HERE"
 ExecStartPre=-/usr/bin/docker kill nrsysmond
 ExecStartPre=-/usr/bin/docker rm nrsysmond
