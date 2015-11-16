@@ -36,11 +36,11 @@ if [ -n "${DOCKER_CERT_PATH}" ]; then
 fi
 
 if [ -e /sys ]; then
-  sysarg="-v /sys:/sys"
+  sysarg="-v /sys:/host/sys"
 fi
 
 if [ -e /cgroup ]; then
-  cgarg="-v /cgroup:/cgroup"
+  cgarg="-v /cgroup:/host/cgroup"
 fi
 
 envargs=`/usr/bin/env | grep ^NRSYSMOND_ | sed -e 's/^/-e /'`
@@ -53,6 +53,7 @@ envargs=`/usr/bin/env | grep ^NRSYSMOND_ | sed -e 's/^/-e /'`
 # it gets the correct host name and IP address, which can have an impact on
 # correct reporting and billing.
 #
-/usr/bin/env docker run --pid=host -d ${envargs} -v /proc:/hostproc -v /dev:/dev ${sysarg} \
+/usr/bin/env docker run --pid=host -d ${envargs} -v /proc:/host/proc -v /dev:/host/dev ${sysarg} \
     ${cgarg} ${sockarg} ${cparg} --privileged=true --net=host \
+    -E NRSYSMOND_host_root=/host \
     newrelic/nrsysmond:latest
