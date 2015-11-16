@@ -11,9 +11,8 @@ if [ ! -f Dockerfile ]; then
 fi
 
 rootname="newrelic"
-if [ $# -ne 0 ]
-  then
-rootname=$1
+if [ $# -ne 0 ]; then
+  rootname=$1
 fi
 
 
