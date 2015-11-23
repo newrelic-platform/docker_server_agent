@@ -10,10 +10,13 @@ if [ ! -f Dockerfile ]; then
   exit 1
 fi
 
-rootname="newrelic"
+
 if [ $# -ne 0 ]
-  then
-rootname=$1
+then
+  tag_name=$1
+else
+  echo "Error: Must supply Tag"
+  exit 1;
 fi
 
 
@@ -27,14 +30,12 @@ tar -xvzf download.newrelic.com/server_monitor/release/*-linux.tar.gz
 cp newrelic-sysmond-*-linux/daemon/nrsysmond.x64 .
 
 #Parse version number from the file name
-input=`ls download.newrelic.com/server_monitor/release/*-linux.tar.gz`
-export NRSYSMONDVERSION=`echo $input| cut -d'-' -f 3`
+#input=`ls download.newrelic.com/server_monitor/release/*-linux.tar.gz`
+#export NRSYSMONDVERSION=`echo $input| cut -d'-' -f 3`
 
 #Build the docker image
-ID=$(docker build -t ${rootname}/nrsysmond:${NRSYSMONDVERSION} .)
-
-#Tag the image
-docker tag --force=true ${rootname}/nrsysmond:${NRSYSMONDVERSION}  ${rootname}/nrsysmond:latest
+docker build -t ${tag_name} .
+#ID=$(docker build -t ${rootname}/nrsysmond:${NRSYSMONDVERSION} .)
 
 #Cleanup temporary files
 rm -r download.newrelic.com

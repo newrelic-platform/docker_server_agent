@@ -1,0 +1,19 @@
+[Unit]
+Description=New Relic System Monitor (nrsysmond)
+After=docker.service
+Requires=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=10m
+ExecStartPre=-/usr/bin/docker kill nrsysmond
+ExecStartPre=-/usr/bin/docker rm nrsysmond
+ExecStartPre=/bin/bash -c '/usr/bin/docker pull `etcdctl get /system/services/discovery/registry/hostPort`/newrelic-sysmond:`etcdctl get /system/services/versionControl/dockerImages/newrelic-sysmond/tag 2>&- || echo latest`'
+ExecStart=/bin/bash -c '/usr/bin/docker run --name nrsysmond --rm --pid=host -v /sys:/sys -v /dev:/dev -v /var/run/docker.sock:/var/run/docker.sock --privileged=true --net=host -e NRSYSMOND_license_key="`etcdctl get /system/services/discovery/environment/newrelicLicenseKey`" -e NRSYSMOND_hostname="Flow Designer $(echo $COREOS_PRIVATE_IPV4 | cut -d , -f 1) (`etcdctl get /system/services/discovery/environment/envName`.`etcdctl get /system/services/discovery/environment/siteId`)" -e NRSYSMOND_loglevel=info `etcdctl get /system/services/discovery/registry/hostPort`/newrelic-sysmond:`etcdctl get /system/services/versionControl/dockerImages/newrelic-sysmond/tag 2>&- || echo latest`'
+ExecStop=/usr/bin/docker stop -t 30 nrsysmond
+
+[Install]
+WantedBy=multi-user.target
+
+[X-Fleet]
+Global=true
