@@ -17,4 +17,4 @@ LABEL Description="New Relic Linux Server Monitor" vendor="New Relic Inc."
 
 ADD nrsysmond.x64 /usr/sbin/nrsysmond
 
-CMD /usr/sbin/nrsysmond -E -F
+CMD ["/usr/sbin/nrsysmond", "-E", "-F"]
